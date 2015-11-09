@@ -23,7 +23,40 @@ angular.module('ztorez', [
         longitude: -122.4446662
       });
     }
-  }
+  };
+
+  var positions = [
+    {
+      brand: 'eton',
+      latitude: 37.7837657,
+      longitude: -122.4090027
+    },
+    {
+      brand: 'eton',
+      latitude: 37.79,
+      longitude: -122.4090027
+    },
+    {
+      brand: 'acne',
+      latitude: 37.78,
+      longitude: -122.42
+    },
+    {
+      brand: 'acne',
+      latitude: 37.75,
+      longitude: -122.44
+    }
+  ];
+
+  var addLocations = function (map, positions) {
+    positions.forEach(function (position) {
+      var LatLng = new google.maps.LatLng(position.latitude, position.longitude);
+      var marker = new google.maps.Marker({
+        position: LatLng,
+        map: map
+      });
+    });
+  };
 
   var loadMap = function () {
     getPosition(function(position) {
@@ -34,14 +67,10 @@ angular.module('ztorez', [
         mapTypeId: google.maps.MapTypeId.ROADMAP
       };
       var map = new google.maps.Map(mapCanvas, mapOptions);
+      addLocations(map, positions);
     });
   };
 
   google.maps.event.addDomListener(window, 'load', loadMap);
 
 });
-// .run(function ($rootScope, $location) {
-//   $rootScope.$on('$routeChangeStart', function (evt, next, current) {
-
-//   });
-// })
