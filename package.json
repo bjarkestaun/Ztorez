@@ -7,6 +7,7 @@
   "devDependencies": {},
   "dependencies": {
     "angular": "^1.4.7",
+    "body-parser": "^1.14.1",
     "express": "^4.13.3",
     "mongodb": "^2.0.48",
     "mongoose": "^4.2.4"
