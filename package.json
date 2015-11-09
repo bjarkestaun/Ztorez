@@ -1,0 +1,14 @@
+{
+  "name": "Ztorez",
+  "version": "0.0.0",
+  "description": "Quickly and easily search for a clothing brand and see the locations of the stores that have the brand",
+  "main": "server.js",
+  "scripts": {},
+  "devDependencies": {},
+  "dependencies": {
+    "angular": "^1.4.7",
+    "express": "^4.13.3",
+    "mongodb": "^2.0.48",
+    "mongoose": "^4.2.4"
+  }
+}
