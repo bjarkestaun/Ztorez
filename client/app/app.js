@@ -11,14 +11,30 @@ angular.module('ztorez', [
 // })
 .controller('mainController', function ($scope) {
 
+  var getPosition = function (cb) {
+    if('geolocation' in navigator) {
+      navigator.geolocation.getCurrentPosition(function(position) {
+        cb(position.coords);
+      });
+    } else {
+      // center on SF if user location not activated
+      cb({
+        latitude: 37.7593482,
+        longitude: -122.4446662
+      });
+    }
+  }
+
   var loadMap = function () {
-    var mapCanvas = document.getElementById('map');
-    var mapOptions = {
-      center: new google.maps.LatLng(44, -80),
-      zoom: 8,
-      mapTypeId: google.maps.MapTypeId.ROADMAP
-    };
-    var map = new google.maps.Map(mapCanvas, mapOptions);
+    getPosition(function(position) {
+      var mapCanvas = document.getElementById('map');
+      var mapOptions = {
+        center: new google.maps.LatLng(position.latitude, position.longitude),
+        zoom: 12,
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+      };
+      var map = new google.maps.Map(mapCanvas, mapOptions);
+    });
   };
 
   google.maps.event.addDomListener(window, 'load', loadMap);
