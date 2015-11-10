@@ -27,10 +27,6 @@ LocationSchema.methods.addGeoData = function () {
     });
 };
 
-LocationSchema.methods.addBrand = function (brandId) {
-  // this.
-};
-
 LocationSchema.pre('save', function (next) {
   this.addGeoData()
     .then(function () {

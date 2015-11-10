@@ -3,24 +3,11 @@ angular.module('ztorez', [
     'ztorez.map',
     'ztorez.services'
   ])
-// .config(function ($routeProvider, $httpProvider) {
-//   $routeProvider
-//     .when('/', {
-//       templateUrl: 'map/map.html',
-//       controller: 'mapController'
-//     });
-// })
-.controller('mainController', function ($scope, $filter, Locations) {
+
+.controller('mainController', function ($scope, $filter, Locations, Brands) {
 
   var frombackend = Locations.getLocations();
   console.log(frombackend);
-
-  var data = {
-    name: 'b man',
-    rawAddress: 'Ziegelstrasse 27, Berlin'
-  };
-
-  Locations.addLocation(data);
 
   var locations = [
     {
@@ -83,7 +70,6 @@ angular.module('ztorez', [
   };
 
   $scope.filterResults = function () {
-    console.log($scope.brandFilter);
     var filteredLocations = $filter('filter')(locations, {
       brand: $scope.brandFilter
     });
@@ -91,5 +77,13 @@ angular.module('ztorez', [
   };
 
   google.maps.event.addDomListener(window, 'load', loadMap(locations));
+
+  $scope.addLocation = function () {
+    var data = {
+      name: $scope.location.name,
+      rawAddress: $scope.location.rawAddress
+    };
+    Locations.addLocation(data);
+  };
 
 });

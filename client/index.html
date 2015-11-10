@@ -22,5 +22,22 @@
 
   <div id='map'></div>
 
+  <form ng-submit='addLocation()'>
+    <input ng-model='location.name'/>
+    <input ng-model='location.rawAddress'/>
+    <input type='submit' value='Add location'>
+  </form>
+
+  <form ng-submit='addBrand()'>
+    <input ng-model='brand.name'/>
+    <input type='submit' value='Add brand'/>
+  </form>
+
+  <form ng-submit='addBrandToLocation()'>
+    <input ng-model='locationId'/>
+    <input ng-model='brandId'/>
+    <input type='submit' value='Add brand to location'>
+  </form>
+
 </body>
 </html>

@@ -10,7 +10,6 @@ mongoose.connect('mongodb://localhost/ztorez');
 
 var app = express();
 
-app.use(bodyParser.urlencoded());
 app.use(bodyParser.json());
 app.use(express.static(__dirname + '/../client'));
 app.use(morgan('dev'));
@@ -22,6 +21,7 @@ app.get('/', function(req, res) {
 app.get('/api/locations', locations.getAllLocations);
 app.get('/api/locations/brands/:brandId', locations.getBrandedLocations);
 app.post('/api/locations', locations.addLocation);
+app.post('/api/locations/brands', locations.addBrandToLocation);
 
 app.get('/api/brands', brands.getBrands);
 app.post('/api/brands', brands.addBrand);

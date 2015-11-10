@@ -13,11 +13,37 @@ angular.module('ztorez.services', [])
     });
   };
 
+  var getBrandedLocations = function (brandId) {
+    return $http({
+      method: 'GET',
+      url: '/api/locations/brands/' + brandId
+    })
+    .then(function (res) {
+      console.log(res.data);
+      return res.data;
+    });
+  };
+
   var addLocation = function (data) {
     console.log(data);
     return $http({
       method: 'POST',
       url: '/api/locations',
+      data: data
+    })
+    .then(function (res) {
+      console.log(res.data);
+      return res.data;
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+  };
+
+  var addBrandToLocation = function (data) {
+    return $http({
+      method: 'POST',
+      url: '/api/locations/brands',
       data: data
     })
     .then(function (res) {
@@ -28,6 +54,37 @@ angular.module('ztorez.services', [])
   return {
     getLocations: getLocations,
     addLocation: addLocation
+  };
+
+})
+
+.factory('Brands', function ($http) {
+
+  var getBrands = function () {
+    return $http({
+      method: 'GET',
+      url: '/api/brands'
+    })
+    .then(function (res) {
+      console.log(res.data);
+      return res.data;
+    });
+  };
+
+  var addBrand = function (data) {
+    return $http({
+      method: 'POST',
+      url: '/api/brands',
+      data: data
+    })
+    .then(function (res) {
+      return res.data;
+    });
+  };
+
+  return {
+    getBrands: getBrands,
+    addBrand: addBrand
   };
 
 });

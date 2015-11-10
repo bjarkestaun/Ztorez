@@ -18,11 +18,20 @@ module.exports = {
   },
 
   getBrandedLocations: function (req, res) {
-    // code
+    var brandId = req.body.brandId;
+    Promise.resolve(Location.find({
+      brands: brandId
+    }).exec())
+      .then(function (locations) {
+        res.status(200).send(locations);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   },
   
   addLocation: function (req, res) {
-    console.log(req.body);
+    console.log('running ', req.body);
     var name = req.body.name;
     var rawAddress = req.body.rawAddress;
     var newLocation = new Location({
@@ -31,6 +40,7 @@ module.exports = {
     });
     newLocation.save(function (error, location) {
       if(error) throw error;
+      console.log('done ', location);
     });
   },
 
