@@ -64,6 +64,9 @@ angular.module('ztorez', [
       };
       map = new google.maps.Map(mapCanvas, mapOptions);
       var openInfoWindow = null;
+      map.addListener('click', function () {
+        if(openInfoWindow) openInfoWindow.close();
+      });
       locs.forEach(function (location) {
         var LatLng = new google.maps.LatLng(location.location.lat, location.location.lng);
         var marker = new google.maps.Marker({
