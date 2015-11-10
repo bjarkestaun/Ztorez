@@ -11,11 +11,11 @@ angular.module('ztorez', [
   $scope.locations = [];
   $scope.brands = [];
   $scope.selectedBrand = undefined;
+  $scope.locationDetails = false;
   var map;
   var markers = [];
   var openInfoWindow = null;
   var selectedLocation = null;
-  var locationDetails = false;
    
   var getPosition = function (cb) {
     if('geolocation' in navigator) {
@@ -68,6 +68,8 @@ angular.module('ztorez', [
       map = new google.maps.Map(mapCanvas, mapOptions);
       map.addListener('click', function () {
         if(openInfoWindow) openInfoWindow.close();
+        $scope.locationDetails = false;
+        $scope.$digest();
       });
       updateMarkers(locs);
     });
@@ -107,9 +109,10 @@ angular.module('ztorez', [
   };
 
   var showLocationDetails = function (location) {
-    var locationName = location.name;
-    var locationAddress = location.formattedAddress;
-    locationDetails = true;
+    $scope.locationName = location.name;
+    $scope.locationAddress = location.formattedAddress;
+    $scope.locationDetails = true;
+    $scope.$digest();
   };
 
   $scope.filterResults = function () {
