@@ -13,7 +13,7 @@ module.exports = {
         res.status(200).send(locations);
       })
       .catch(function (error) {
-        console.log(error);
+        console.error(error);
       });
   },
 
@@ -26,12 +26,11 @@ module.exports = {
         res.status(200).send(locations);
       })
       .catch(function (error) {
-        console.log(error);
+        console.error(error);
       });
   },
   
   addLocation: function (req, res) {
-    console.log('running ', req.body);
     var name = req.body.name;
     var rawAddress = req.body.rawAddress;
     var newLocation = new Location({

@@ -8,8 +8,10 @@ angular.module('ztorez.services', [])
       url: '/api/locations'
     })
     .then(function (res) {
-      console.log(res.data);
       return res.data;
+    })
+    .catch(function (error) {
+      console.log(error);
     });
   };
 
@@ -19,8 +21,10 @@ angular.module('ztorez.services', [])
       url: '/api/locations/brands/' + brandId
     })
     .then(function (res) {
-      console.log(res.data);
       return res.data;
+    })
+    .catch(function (error) {
+      console.log(error);
     });
   };
 
@@ -32,7 +36,6 @@ angular.module('ztorez.services', [])
       data: data
     })
     .then(function (res) {
-      console.log(res.data);
       return res.data;
     })
     .catch(function (error) {
@@ -47,7 +50,6 @@ angular.module('ztorez.services', [])
       data: data
     })
     .then(function (res) {
-      console.log(res.data);
       return res.data;
     });
   };
@@ -68,7 +70,6 @@ angular.module('ztorez.services', [])
       url: '/api/brands'
     })
     .then(function (res) {
-      console.log(res.data);
       return res.data;
     });
   };
@@ -80,7 +81,6 @@ angular.module('ztorez.services', [])
       data: data
     })
     .then(function (res) {
-      console.log(res.data);
       return res.data;
     });
   };
