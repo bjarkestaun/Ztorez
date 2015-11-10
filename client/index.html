@@ -20,7 +20,7 @@
   <div ng-view></div>
 
   <form ng-submit='filterResults()'>
-    <input type='text' placeholder='Search for a brand' ng-model='selected' uib-typeahead='brand as brand.name for brand in brands | filter:{name:$viewValue} | limitTo:8' class='form-control'/>
+    <input type='text' placeholder='Search for a brand' ng-model='selectedBrands' uib-typeahead='brand as brand.name for brand in brands | filter:{name:$viewValue} | limitTo:8' class='form-control'/>
     <input type='submit' value='Search'/>
   </form>
 

@@ -9,7 +9,7 @@ angular.module('ztorez', [
 .controller('mainController', function ($scope, $filter, Locations, Brands) {
 
   var locations = [];
-  $scope.selected = undefined;
+  $scope.selectedBrands = undefined;
   // $scope.brands = ['Acne', 'Eton', 'Ralph Lauren'];
    
   var getPosition = function (cb) {
@@ -39,8 +39,9 @@ angular.module('ztorez', [
 
   var getLocations = function (map) {
     Locations.getLocations()
-      .then(function (locations){
-        locations.forEach(function (location) {
+      .then(function (locs){
+        locations = locs;
+        locs.forEach(function (location) {
         var LatLng = new google.maps.LatLng(location.location.lat, location.location.lng);
         var marker = new google.maps.Marker({
           position: LatLng,
@@ -64,9 +65,15 @@ angular.module('ztorez', [
   };
 
   $scope.filterResults = function () {
-    var filteredLocations = $filter('filter')(locations, {
-      brand: $scope.brandFilter
+    console.log($scope.selectedBrands.locations);
+    console.log(locations);
+    var filteredLocations = [];
+    locations.forEach(function (location) {
+      if($scope.selectedBrands.locations.indexOf(location._id)) filteredLocations.push(location);
     });
+    console.log('filtered');
+    console.log(filteredLocations);
+    debugger;
     loadMap(filteredLocations);
   };
 
