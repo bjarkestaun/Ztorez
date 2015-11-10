@@ -9,6 +9,7 @@
   "devDependencies": {},
   "dependencies": {
     "angular": "^1.4.7",
+    "bluebird": "^3.0.5",
     "body-parser": "^1.14.1",
     "bower": "^1.6.5",
     "express": "^4.13.3",

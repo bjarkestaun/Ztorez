@@ -1,5 +1,6 @@
 var mongoose = require('mongoose');
-var geocodingHelper = require('../services/geocodingHelper.js');
+var getGeoData = require('../services/geocodingHelper.js');
+var Promise = require('bluebird');
 
 var LocationSchema = new mongoose.Schema({
   name: String,
@@ -11,26 +12,38 @@ var LocationSchema = new mongoose.Schema({
   }
 });
 
-LocationSchema.pre('save', function (next) {
-  geocodingHelper(this.rawAddress, function(error, rawResult) {
-    if(error) throw error;
-    else {
+LocationSchema.methods.addGeoData = function () {
+  return getGeoData(this.rawAddress).bind(this)
+    .then(function (rawResult) {
       var result = JSON.parse(rawResult);
       this.formattedAddress = result.results[0].formatted_address;
       this.location = result.results[0].geometry.location;
+      console.log(this.formattedAddress);
+      console.log(this.location);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+  
+}
+
+LocationSchema.pre('save', function (next) {
+  this.addGeoData()
+    .then(function () {
       next();
-    }
-  });
+    })
+    .catch(function (error) {
+      console.log(error)
+    });
+  //   , function(error, rawResult) {
+  //   if(error) throw error;
+  //   else {
+  //   }
+  // });
 });
 
 module.exports = mongoose.model('Location', LocationSchema);
 var LocationStuff = mongoose.model('Location', LocationSchema);
-
-var test = {}
-test.body = {
-  name: 'bjakre',
-  rawAddress: '250 taylor street, san francisco'
-};
 
 var newLoc = new LocationStuff({
   name: 'bjarke',
