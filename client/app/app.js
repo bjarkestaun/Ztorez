@@ -13,6 +13,7 @@ angular.module('ztorez', [
   $scope.selectedBrand = undefined;
   var map;
   var markers = [];
+  var openInfoWindow = null;
    
   var getPosition = function (cb) {
     if('geolocation' in navigator) {
@@ -63,36 +64,15 @@ angular.module('ztorez', [
         mapTypeId: google.maps.MapTypeId.ROADMAP
       };
       map = new google.maps.Map(mapCanvas, mapOptions);
-      var openInfoWindow = null;
       map.addListener('click', function () {
         if(openInfoWindow) openInfoWindow.close();
       });
-      locs.forEach(function (location) {
-        var LatLng = new google.maps.LatLng(location.location.lat, location.location.lng);
-        var marker = new google.maps.Marker({
-          position: LatLng,
-          map: map
-        });
-        var name = location.name;
-        var address = location.formattedAddress;
-        var InfoWindowContent = '<div id="infowindow"><h4>' + name + '</h4><p>' + address + '</p></div>';
-        var infoWindow = new google.maps.InfoWindow({
-          content: InfoWindowContent
-        });
-        markers.push(marker);
-        marker.addListener('click', function () {
-          if(openInfoWindow) {
-            openInfoWindow.close();
-          }
-          infoWindow.open(marker.get('map'), marker);
-          openInfoWindow = infoWindow;
-        });
-      });
+      updateMarkers(locs);
     });
   };
 
   var updateMarkers = function (locs) {
-    var openInfoWindow = null;
+    if(openInfoWindow) openInfoWindow.close();
     markers.forEach(function (marker) {
       marker.setMap(null);
     });
