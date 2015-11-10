@@ -90,4 +90,8 @@ angular.module('ztorez.services', [])
     addBrand: addBrand
   };
 
+})
+
+.factory('Map', function ($http) {
+  return {};
 });

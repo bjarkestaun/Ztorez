@@ -6,11 +6,11 @@ angular.module('ztorez', [
     'ztorez.services'
   ])
 
-.controller('mainController', function ($scope, $filter, Locations, Brands) {
+.controller('mainController', function ($scope, $filter, Locations, Brands, Map) {
 
-  var locations = [];
+  $scope.locations = [];
+  $scope.brands = [];
   $scope.selectedBrands = undefined;
-  // $scope.brands = ['Acne', 'Eton', 'Ralph Lauren'];
    
   var getPosition = function (cb) {
     if('geolocation' in navigator) {
@@ -26,22 +26,42 @@ angular.module('ztorez', [
     }
   };
 
-  var getBrands = function () {
+  var getBrands = function (cb) {
     Brands.getBrands()
       .then(function (brands) {
         $scope.brands = brands;
-        console.log(brands);
+        console.log($scope.brands);
+        cb(null, brands);
       })
       .catch(function (error) {
         console.log(error);
+        cb(error);
       });
   };
 
-  var getLocations = function (map) {
+  var getLocations = function (cb) {
     Locations.getLocations()
       .then(function (locs){
-        locations = locs;
-        locs.forEach(function (location) {
+        $scope.locations = locs;
+        console.log($scope.locations);
+        cb(null, locs);
+      })
+      .catch(function (error) {
+        console.log(error);
+        cb(error);
+      });
+  };
+
+  var loadMap = function (locs) {
+    getPosition(function(position) {
+      var mapCanvas = document.getElementById('map');
+      var mapOptions = {
+        center: new google.maps.LatLng(position.latitude, position.longitude),
+        zoom: 12,
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+      };
+      var map = new google.maps.Map(mapCanvas, mapOptions);
+      locs.forEach(function (location) {
         var LatLng = new google.maps.LatLng(location.location.lat, location.location.lng);
         var marker = new google.maps.Marker({
           position: LatLng,
@@ -51,7 +71,7 @@ angular.module('ztorez', [
     });
   };
 
-  var loadMap = function (locations) {
+  var loadMapOld = function (locations) {
     getPosition(function(position) {
       var mapCanvas = document.getElementById('map');
       var mapOptions = {
@@ -60,25 +80,30 @@ angular.module('ztorez', [
         mapTypeId: google.maps.MapTypeId.ROADMAP
       };
       var map = new google.maps.Map(mapCanvas, mapOptions);
-      getLocations(map);
+      if(!locations) getLocations(map);
+      else getLocations(map, locations);
     });
   };
 
   $scope.filterResults = function () {
-    console.log($scope.selectedBrands.locations);
-    console.log(locations);
-    var filteredLocations = [];
-    locations.forEach(function (location) {
-      if($scope.selectedBrands.locations.indexOf(location._id)) filteredLocations.push(location);
-    });
-    console.log('filtered');
-    console.log(filteredLocations);
-    debugger;
-    loadMap(filteredLocations);
+    if($scope.selectedBrands === '') {
+      loadMap($scope.locations);
+    } else {
+      var filteredLocations = [];
+      $scope.locations.forEach(function (location) {
+        if($scope.selectedBrands.locations.indexOf(location._id)) filteredLocations.push(location);
+      });
+      console.log('filtered');
+      console.log(filteredLocations);
+      loadMap(filteredLocations);
+    }
   };
 
-  getBrands();
-  google.maps.event.addDomListener(window, 'load', loadMap(locations));
+  getBrands(function (error, brands) {
+    getLocations(function (error, locations) {
+      google.maps.event.addDomListener(window, 'load', loadMap(locations));
+    });
+  });
 
 
 
