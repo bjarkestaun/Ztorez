@@ -11,20 +11,6 @@ angular.module('ztorez', [
 // })
 .controller('mainController', function ($scope, $filter) {
 
-  var getPosition = function (cb) {
-    if('geolocation' in navigator) {
-      navigator.geolocation.getCurrentPosition(function(position) {
-        cb(position.coords);
-      });
-    } else {
-      // center on SF if user location not activated
-      cb({
-        latitude: 37.7593482,
-        longitude: -122.4446662
-      });
-    }
-  };
-
   var locations = [
     {
       brand: 'eton',
@@ -47,13 +33,20 @@ angular.module('ztorez', [
       longitude: -122.44
     }
   ];
-
-  var filteredLocations = $filter('filter')(locations, {});
-
-  var test = $scope.filter;
-  $scope.tester = test + ' hello';
-
-  $scope.filteredResults = filteredLocations;
+  
+  var getPosition = function (cb) {
+    if('geolocation' in navigator) {
+      navigator.geolocation.getCurrentPosition(function(position) {
+        cb(position.coords);
+      });
+    } else {
+      // center on SF if user location not activated
+      cb({
+        latitude: 37.7593482,
+        longitude: -122.4446662
+      });
+    }
+  };
 
   var addLocations = function (map, locations) {
     locations.forEach(function (location) {

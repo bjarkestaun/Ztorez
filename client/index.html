@@ -11,14 +11,13 @@
 <body ng-controller='mainController'>
   
   <h1>Ztorez</h1>
+
   <div ng-view></div>
+
   <form ng-submit='filterResults()'>
     <input ng-model='brandFilter'/>
     <input type='submit' value='Search'/>
   </form>
-  <p>{{ filter }}</p>
-  <p>{{ tester }}</p>
-  <p>{{ filteredResults }}</p>
 
   <div id='map'></div>
 

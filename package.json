@@ -12,8 +12,10 @@
     "body-parser": "^1.14.1",
     "bower": "^1.6.5",
     "express": "^4.13.3",
+    "http": "0.0.0",
     "mongodb": "^2.0.48",
     "mongoose": "^4.2.4",
-    "morgan": "^1.6.1"
+    "morgan": "^1.6.1",
+    "request": "^2.65.0"
   }
 }
