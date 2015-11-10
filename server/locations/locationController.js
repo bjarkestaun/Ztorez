@@ -4,7 +4,7 @@ var geocodingHelper = require('../services/geocodingHelper.js');
 module.exports = {
   
   getAllLocations: function (req, res, next) {
-    // code
+    res.send(200);
   },
 
   getBrandedLocations: function (req, res, next) {
