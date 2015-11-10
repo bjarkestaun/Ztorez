@@ -1,6 +1,7 @@
 angular.module('ztorez', [
     'ngRoute',
-    'ztorez.map'
+    'ztorez.map',
+    'ztorez.services'
   ])
 // .config(function ($routeProvider, $httpProvider) {
 //   $routeProvider
@@ -9,7 +10,10 @@ angular.module('ztorez', [
 //       controller: 'mapController'
 //     });
 // })
-.controller('mainController', function ($scope, $filter) {
+.controller('mainController', function ($scope, $filter, Locations) {
+
+  var frombackend = Locations.getLocations();
+  console.log(frombackend);
 
   var locations = [
     {

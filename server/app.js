@@ -17,12 +17,12 @@ app.get('/', function(req, res) {
   res.sendFile(__dirname + '/../client/index.html');
 });
 
-app.get('/locations', locations.getAllLocations);
-app.get('/locations/brands/:brandId', locations.getBrandedLocations);
-app.post('/locations', locations.addLocation);
+app.get('/api/locations', locations.getAllLocations);
+app.get('/api/locations/brands/:brandId', locations.getBrandedLocations);
+app.post('/api/locations', locations.addLocation);
 
-app.get('/brands', brands.getBrands);
-app.post('/brands', brands.addBrand);
+app.get('/api/brands', brands.getBrands);
+app.post('/api/brands', brands.addBrand);
 
 
 app.listen(process.env.PORT || 8000);

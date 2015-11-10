@@ -19,6 +19,7 @@ module.exports = {
   },
   
   addLocation: function (req, res, next) {
+    console.log(req);
     var name = req.body.name;
     var rawAddress = req.body.rawAddress;
     var newLocation = new Location({
