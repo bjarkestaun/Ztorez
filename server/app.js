@@ -6,7 +6,7 @@ var bodyParser = require('body-parser');
 var brands = require('./brands/brandController.js');
 var locations = require('./locations/locationController.js');
 
-mongoose.connect('mongodb://localhost/ztorez');
+mongoose.connect('mongodb://ztorez:bjarke@ds053774.mongolab.com:53774/heroku_rq0x2pt9');
 
 var app = express();
 

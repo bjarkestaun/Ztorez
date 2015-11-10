@@ -10,7 +10,7 @@ angular.module('ztorez', [
 
   $scope.locations = [];
   $scope.brands = [];
-  $scope.selectedBrands = undefined;
+  $scope.selectedBrand = undefined;
    
   var getPosition = function (cb) {
     if('geolocation' in navigator) {
@@ -78,7 +78,6 @@ angular.module('ztorez', [
           if(openInfoWindow) {
             openInfoWindow.close();
           }
-          console.log(location);
           infoWindow.open(marker.get('map'), marker);
           openInfoWindow = infoWindow;
         });
@@ -87,12 +86,12 @@ angular.module('ztorez', [
   };
 
   $scope.filterResults = function () {
-    if($scope.selectedBrands === '') {
+    if($scope.selectedBrand === '') {
       loadMap($scope.locations);
     } else {
       var filteredLocations = [];
       $scope.locations.forEach(function (location) {
-        if($scope.selectedBrands.locations.indexOf(location._id)) filteredLocations.push(location);
+        if($scope.selectedBrand.locations.indexOf(location._id) > -1) filteredLocations.push(location);
       });
       loadMap(filteredLocations);
     }
@@ -137,7 +136,7 @@ angular.module('ztorez', [
         return total;
       }
     }, null);
-    debugger;
+    
     if(locationId && brandId) {
       var data = {
         locationId: locationId,
