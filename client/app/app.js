@@ -9,7 +9,7 @@ angular.module('ztorez', [
 //       controller: 'mapController'
 //     });
 // })
-.controller('mainController', function ($scope) {
+.controller('mainController', function ($scope, $filter) {
 
   var getPosition = function (cb) {
     if('geolocation' in navigator) {
@@ -25,7 +25,7 @@ angular.module('ztorez', [
     }
   };
 
-  var positions = [
+  var locations = [
     {
       brand: 'eton',
       latitude: 37.7837657,
@@ -48,9 +48,16 @@ angular.module('ztorez', [
     }
   ];
 
-  var addLocations = function (map, positions) {
-    positions.forEach(function (position) {
-      var LatLng = new google.maps.LatLng(position.latitude, position.longitude);
+  var filteredLocations = $filter('filter')(locations, {});
+
+  var test = $scope.filter;
+  $scope.tester = test + ' hello';
+
+  $scope.filteredResults = filteredLocations;
+
+  var addLocations = function (map, locations) {
+    locations.forEach(function (location) {
+      var LatLng = new google.maps.LatLng(location.latitude, location.longitude);
       var marker = new google.maps.Marker({
         position: LatLng,
         map: map
@@ -58,7 +65,7 @@ angular.module('ztorez', [
     });
   };
 
-  var loadMap = function () {
+  var loadMap = function (locations) {
     getPosition(function(position) {
       var mapCanvas = document.getElementById('map');
       var mapOptions = {
@@ -67,10 +74,18 @@ angular.module('ztorez', [
         mapTypeId: google.maps.MapTypeId.ROADMAP
       };
       var map = new google.maps.Map(mapCanvas, mapOptions);
-      addLocations(map, positions);
+      addLocations(map, locations);
     });
   };
 
-  google.maps.event.addDomListener(window, 'load', loadMap);
+  $scope.filterResults = function () {
+    console.log($scope.brandFilter);
+    var filteredLocations = $filter('filter')(locations, {
+      brand: $scope.brandFilter
+    });
+    loadMap(filteredLocations);
+  };
+
+  google.maps.event.addDomListener(window, 'load', loadMap(locations));
 
 });
