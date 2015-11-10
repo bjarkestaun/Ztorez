@@ -17,7 +17,7 @@ angular.module('ztorez', [
 
   var data = {
     name: 'b man',
-    rawAddress: 'Store Kongensgade 70, Copenhagen'
+    rawAddress: 'Ziegelstrasse 27, Berlin'
   };
 
   Locations.addLocation(data);

@@ -1,7 +1,8 @@
-var Location = require('./locationModel.js');
-var geocodingHelper = require('../services/geocodingHelper.js');
 var Promise = require('bluebird');
 var request = require('request');
+var Location = require('./locationModel.js');
+var Brand = require('../brands/brandModel.js');
+var geocodingHelper = require('../services/geocodingHelper.js');
 
 
 module.exports = {
@@ -34,7 +35,18 @@ module.exports = {
   },
 
   addBrandToLocation: function (req, res) {
-    
+    var brandId = req.body.brandId;
+    var locationId = req.body.locationId;
+    Location.findByIdAndUpdate(locationId, {
+      $push: {'brands': brandId}
+    }, function (error, location) {
+      if(error) throw error;
+    });
+    Brand.findByIdAndUpdate(brandId, {
+      $push: {'locations': locationId}
+    }, function (error, brand) {
+      if(error) throw error;
+    });
   }
 
 };
