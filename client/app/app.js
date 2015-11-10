@@ -141,6 +141,17 @@ angular.module('ztorez', [
 
 
   // functions that add locations and brands
+  $scope.addBrand = function () {
+    var data = {
+      name: $scope.brandNameToAdd
+    };
+    debugger;
+    Brands.addBrand(data)
+      .then(function (result) {
+        $scope.addBrandToLocation(result);
+      });
+  };
+
   $scope.addLocation = function () {
     var data = {
       name: $scope.location.name,
@@ -149,28 +160,24 @@ angular.module('ztorez', [
     Locations.addLocation(data);
   };
 
-  $scope.addBrand = function () {
-    var data = {
-      name: $scope.brand.name
-    };
-    Brands.addBrand(data);
-  };
+  $scope.addBrandToLocation = function (brand) {
+    var locationId = $scope.location._id;
+    var brandId = brand._id;
 
-  $scope.addBrandToLocation = function () {
-    var locationId = $scope.locations.reduce(function (total, location) {
-      if(location.name === $scope.locationName) {
-        return location._id;
-      } else {
-        return total;
-      }
-    }, null);
-    var brandId = $scope.brands.reduce(function (total, brand) {
-      if(brand.name === $scope.brandName) {
-        return brand._id;
-      } else {
-        return total;
-      }
-    }, null);
+    // var locationId = $scope.locations.reduce(function (total, location) {
+    //   if(location.name === $scope.locationName) {
+    //     return location._id;
+    //   } else {
+    //     return total;
+    //   }
+    // }, null);
+    // var brandId = $scope.brands.reduce(function (total, brand) {
+    //   if(brand.name === $scope.brandName) {
+    //     return brand._id;
+    //   } else {
+    //     return total;
+    //   }
+    // }, null);
     
     if(locationId && brandId) {
       var data = {

@@ -24,9 +24,11 @@ module.exports = {
           });
           newBrand.save(function (error, brand) {
             if(error) throw error;
+            res.status(201).send(brand);
           });
         } else {
           console.log('brand already exists');
+          res.status(200).send(brand);
         }
       }
     });
