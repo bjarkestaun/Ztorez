@@ -61,6 +61,7 @@ angular.module('ztorez', [
         mapTypeId: google.maps.MapTypeId.ROADMAP
       };
       var map = new google.maps.Map(mapCanvas, mapOptions);
+      var openInfoWindow = null;
       locs.forEach(function (location) {
         var LatLng = new google.maps.LatLng(location.location.lat, location.location.lng);
         var marker = new google.maps.Marker({
@@ -70,12 +71,16 @@ angular.module('ztorez', [
         var name = location.name;
         var address = location.formattedAddress;
         var InfoWindowContent = '<div id="infowindow"><h4>' + name + '</h4><p>' + address + '</p></div>';
-        var infowindow = new google.maps.InfoWindow({
+        var infoWindow = new google.maps.InfoWindow({
           content: InfoWindowContent
         });
         marker.addListener('click', function () {
+          if(openInfoWindow) {
+            openInfoWindow.close();
+          }
           console.log(location);
-          infowindow.open(marker.get('map'), marker);
+          infoWindow.open(marker.get('map'), marker);
+          openInfoWindow = infoWindow;
         });
       });
     });
