@@ -67,6 +67,16 @@ angular.module('ztorez', [
           position: LatLng,
           map: map
         });
+        var name = location.name;
+        var address = location.formattedAddress;
+        var InfoWindowContent = '<div id="infowindow"><h4>' + name + '</h4><p>' + address + '</p></div>';
+        var infowindow = new google.maps.InfoWindow({
+          content: InfoWindowContent
+        });
+        marker.addListener('click', function () {
+          console.log(location);
+          infowindow.open(marker.get('map'), marker);
+        });
       });
     });
   };
