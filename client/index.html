@@ -20,7 +20,7 @@
   <div ng-view></div>
 
   <form ng-submit='filterResults()'>
-    <input type='text' placeholder='Search for a brand' ng-model='selected' uib-typeahead='brand for brand in brands | filter:$viewValue | limitTo:8' class='form-control'/>
+    <input type='text' placeholder='Search for a brand' ng-model='selected' uib-typeahead='brand as brand.name for brand in brands | filter:{name:$viewValue} | limitTo:8' class='form-control'/>
     <input type='submit' value='Search'/>
   </form>
 
@@ -45,12 +45,3 @@
 
 </body>
 </html>
-
-
-
-<!-- <div ng-app="angularTypeahead">
-  <div class="container-fluid" ng-controller="TypeaheadCtrl">
-    <input name="states" id="states" type="text" placeholder="enter a state" ng-model="selected" typeahead="state for state in states | filter:$viewValue | limitTo:8" class="form-control">
-        <button class="btn btn-success" type="submit">Submit</button>
-  </div>
-</div> -->

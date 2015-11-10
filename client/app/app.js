@@ -10,7 +10,7 @@ angular.module('ztorez', [
 
   var locations = [];
   $scope.selected = undefined;
-  $scope.brands = ['Acne', 'Eton', 'Ralph Lauren'];
+  // $scope.brands = ['Acne', 'Eton', 'Ralph Lauren'];
    
   var getPosition = function (cb) {
     if('geolocation' in navigator) {
@@ -24,6 +24,17 @@ angular.module('ztorez', [
         longitude: -122.4446662
       });
     }
+  };
+
+  var getBrands = function () {
+    Brands.getBrands()
+      .then(function (brands) {
+        $scope.brands = brands;
+        console.log(brands);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   };
 
   var getLocations = function (map) {
@@ -59,7 +70,9 @@ angular.module('ztorez', [
     loadMap(filteredLocations);
   };
 
+  getBrands();
   google.maps.event.addDomListener(window, 'load', loadMap(locations));
+
 
 
   // functions that add locations and brands
