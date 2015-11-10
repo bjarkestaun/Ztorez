@@ -108,11 +108,28 @@ angular.module('ztorez', [
   };
 
   $scope.addBrandToLocation = function () {
-    var data = {
-      locationId: $scope.locationId,
-      brandId: $scope.brandId
-    };
-    Locations.addBrandToLocation(data);
+    var locationId = $scope.locations.reduce(function (total, location) {
+      if(location.name === $scope.locationName) {
+        return location._id;
+      } else {
+        return total;
+      }
+    }, null);
+    var brandId = $scope.brands.reduce(function (total, brand) {
+      if(brand.name === $scope.brandName) {
+        return brand._id;
+      } else {
+        return total;
+      }
+    }, null);
+    debugger;
+    if(locationId && brandId) {
+      var data = {
+        locationId: $scope.locationId,
+        brandId: $scope.brandId
+      };
+      Locations.addBrandToLocation(data);
+    }
   };
 
 });
