@@ -1,5 +1,7 @@
 angular.module('ztorez', [
     'ngRoute',
+    'ui.bootstrap',
+    'ui.bootstrap.typeahead',
     'ztorez.map',
     'ztorez.services'
   ])
@@ -7,6 +9,8 @@ angular.module('ztorez', [
 .controller('mainController', function ($scope, $filter, Locations, Brands) {
 
   var locations = [];
+  $scope.selected = undefined;
+  $scope.brands = ['Acne', 'Eton', 'Ralph Lauren'];
    
   var getPosition = function (cb) {
     if('geolocation' in navigator) {

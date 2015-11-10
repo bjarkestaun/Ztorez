@@ -1,13 +1,17 @@
 <html ng-app='ztorez'>
 <head>
   <title>Ztorez</title>
+  <link rel='stylesheet' type='text/css' href="styles/styles.css"></link>
+  <link rel='stylesheet' type='text/css' href="bower_components/bootstrap/dist/css/bootstrap.min.css"></link>
+  <script src="./bower_components/jquery/dist/jquery.min.js"></script>
+  <script src="./bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
   <script src="./bower_components/angular/angular.min.js"></script>
   <script src="./bower_components/angular-route/angular-route.min.js"></script>
+  <script src="./bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
   <script src="https://maps.googleapis.com/maps/api/js"></script>
   <script src="./app/map/map.js"></script>
   <script src="./services/services.js"></script>
   <script src="./app/app.js"></script>
-  <link rel='stylesheet' type='text/css' href="styles/styles.css"></link>
 </head>
 <body ng-controller='mainController'>
   
@@ -16,7 +20,7 @@
   <div ng-view></div>
 
   <form ng-submit='filterResults()'>
-    <input ng-model='brandFilter'/>
+    <input type='text' placeholder='Search for a brand' ng-model='selected' uib-typeahead='brand for brand in brands | filter:$viewValue | limitTo:8' class='form-control'/>
     <input type='submit' value='Search'/>
   </form>
 
@@ -41,3 +45,12 @@
 
 </body>
 </html>
+
+
+
+<!-- <div ng-app="angularTypeahead">
+  <div class="container-fluid" ng-controller="TypeaheadCtrl">
+    <input name="states" id="states" type="text" placeholder="enter a state" ng-model="selected" typeahead="state for state in states | filter:$viewValue | limitTo:8" class="form-control">
+        <button class="btn btn-success" type="submit">Submit</button>
+  </div>
+</div> -->
