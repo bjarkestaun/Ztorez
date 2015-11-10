@@ -26,8 +26,14 @@
     <div id='map'></div>
   </div>
   <div class='info-box' ng-show='locationDetails'>
-    <h3>{{ locationName }}</h3>
-    <p>{{ locationAddress }}</p>
+    <h3>{{ location.name }}</h3>
+    <p>{{ location.formattedAddress }}</p>
+    <h4>Brands available</h4>
+    <p ng-repeat='brand in location.brands'>{{ brand }}</p>
+    <form ng-submit='addBrand()'>
+      <input ng-model='brand.name'/>
+      <input type='submit' value='Add brand'/>
+    </form>
   </div>
  <!--  <form ng-submit='addLocation()'>
     <input ng-model='location.name'/>
@@ -35,10 +41,6 @@
     <input type='submit' value='Add location'>
   </form>
 
-  <form ng-submit='addBrand()'>
-    <input ng-model='brand.name'/>
-    <input type='submit' value='Add brand'/>
-  </form>
 
   <form ng-submit='addBrandToLocation()'>
     <input ng-model='locationName'/>

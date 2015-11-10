@@ -111,6 +111,7 @@ angular.module('ztorez', [
   var showLocationDetails = function (location) {
     $scope.locationName = location.name;
     $scope.locationAddress = location.formattedAddress;
+    $scope.location = location;
     $scope.locationDetails = true;
     $scope.$digest();
   };
