@@ -31,6 +31,10 @@ module.exports = {
     newLocation.save(function (error, location) {
       if(error) throw error;
     });
+  },
+
+  addBrandToLocation: function (req, res) {
+    
   }
 
 };
