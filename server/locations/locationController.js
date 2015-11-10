@@ -1,25 +1,27 @@
 var Location = require('./locationModel.js');
 var geocodingHelper = require('../services/geocodingHelper.js');
 var Promise = require('bluebird');
+var request = require('request');
+
 
 module.exports = {
   
-  getAllLocations: function (req, res, next) {
+  getAllLocations: function (req, res) {
     Promise.resolve(Location.find().exec())
       .then(function (locations) {
-        res.send(200, locations);
+        res.status(200).send(locations);
       })
       .catch(function (error) {
         console.log(error);
       });
   },
 
-  getBrandedLocations: function (req, res, next) {
+  getBrandedLocations: function (req, res) {
     // code
   },
   
-  addLocation: function (req, res, next) {
-    console.log(req);
+  addLocation: function (req, res) {
+    console.log(req.body);
     var name = req.body.name;
     var rawAddress = req.body.rawAddress;
     var newLocation = new Location({

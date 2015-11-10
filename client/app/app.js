@@ -15,6 +15,13 @@ angular.module('ztorez', [
   var frombackend = Locations.getLocations();
   console.log(frombackend);
 
+  var data = {
+    name: 'b man',
+    rawAddress: 'Store Kongensgade 70, Copenhagen'
+  };
+
+  Locations.addLocation(data);
+
   var locations = [
     {
       brand: 'eton',

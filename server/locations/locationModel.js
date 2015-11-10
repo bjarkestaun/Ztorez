@@ -43,14 +43,14 @@ LocationSchema.pre('save', function (next) {
 });
 
 module.exports = mongoose.model('Location', LocationSchema);
-var LocationStuff = mongoose.model('Location', LocationSchema);
+// var LocationStuff = mongoose.model('Location', LocationSchema);
 
-var newLoc = new LocationStuff({
-  name: 'bjarke',
-  rawAddress: '250 Taylor street, san francisco'
-});
+// var newLoc = new LocationStuff({
+//   name: 'bjarke',
+//   rawAddress: '250 Taylor street, san francisco'
+// });
 
-newLoc.save(function(err, loc) {
-  if(err) console.log(err);
-  else console.log(loc);
-});
+// newLoc.save(function(err, loc) {
+//   if(err) console.log(err);
+//   else console.log(loc);
+// });
