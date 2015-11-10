@@ -71,20 +71,6 @@ angular.module('ztorez', [
     });
   };
 
-  var loadMapOld = function (locations) {
-    getPosition(function(position) {
-      var mapCanvas = document.getElementById('map');
-      var mapOptions = {
-        center: new google.maps.LatLng(position.latitude, position.longitude),
-        zoom: 12,
-        mapTypeId: google.maps.MapTypeId.ROADMAP
-      };
-      var map = new google.maps.Map(mapCanvas, mapOptions);
-      if(!locations) getLocations(map);
-      else getLocations(map, locations);
-    });
-  };
-
   $scope.filterResults = function () {
     if($scope.selectedBrands === '') {
       loadMap($scope.locations);
@@ -93,8 +79,6 @@ angular.module('ztorez', [
       $scope.locations.forEach(function (location) {
         if($scope.selectedBrands.locations.indexOf(location._id)) filteredLocations.push(location);
       });
-      console.log('filtered');
-      console.log(filteredLocations);
       loadMap(filteredLocations);
     }
   };
