@@ -119,7 +119,7 @@ angular.module('ztorez', [
 
   $scope.filterResults = function () {
     if($scope.selectedBrand === '') {
-      loadMap($scope.locations);
+      updateMarkers($scope.locations);
     } else {
       var filteredLocations = [];
       $scope.locations.forEach(function (location) {
