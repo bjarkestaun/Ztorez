@@ -125,8 +125,8 @@ angular.module('ztorez', [
     debugger;
     if(locationId && brandId) {
       var data = {
-        locationId: $scope.locationId,
-        brandId: $scope.brandId
+        locationId: locationId,
+        brandId: brandId
       };
       Locations.addBrandToLocation(data);
     }
