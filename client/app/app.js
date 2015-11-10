@@ -11,6 +11,8 @@ angular.module('ztorez', [
   $scope.locations = [];
   $scope.brands = [];
   $scope.selectedBrand = undefined;
+  var map;
+  var markers = [];
    
   var getPosition = function (cb) {
     if('geolocation' in navigator) {
@@ -60,7 +62,7 @@ angular.module('ztorez', [
         zoom: 12,
         mapTypeId: google.maps.MapTypeId.ROADMAP
       };
-      var map = new google.maps.Map(mapCanvas, mapOptions);
+      map = new google.maps.Map(mapCanvas, mapOptions);
       var openInfoWindow = null;
       locs.forEach(function (location) {
         var LatLng = new google.maps.LatLng(location.location.lat, location.location.lng);
@@ -74,6 +76,7 @@ angular.module('ztorez', [
         var infoWindow = new google.maps.InfoWindow({
           content: InfoWindowContent
         });
+        markers.push(marker);
         marker.addListener('click', function () {
           if(openInfoWindow) {
             openInfoWindow.close();
@@ -81,6 +84,35 @@ angular.module('ztorez', [
           infoWindow.open(marker.get('map'), marker);
           openInfoWindow = infoWindow;
         });
+      });
+    });
+  };
+
+  var updateMarkers = function (locs) {
+    var openInfoWindow = null;
+    markers.forEach(function (marker) {
+      marker.setMap(null);
+    });
+    markers = [];
+    locs.forEach(function (location) {
+      var LatLng = new google.maps.LatLng(location.location.lat, location.location.lng);
+      var marker = new google.maps.Marker({
+        position: LatLng,
+        map: map
+      });
+      var name = location.name;
+      var address = location.formattedAddress;
+      var InfoWindowContent = '<div id="infowindow"><h4>' + name + '</h4><p>' + address + '</p></div>';
+      var infoWindow = new google.maps.InfoWindow({
+        content: InfoWindowContent
+      });
+      markers.push(marker);
+      marker.addListener('click', function () {
+        if(openInfoWindow) {
+          openInfoWindow.close();
+        }
+        infoWindow.open(marker.get('map'), marker);
+        openInfoWindow = infoWindow;
       });
     });
   };
@@ -93,7 +125,7 @@ angular.module('ztorez', [
       $scope.locations.forEach(function (location) {
         if($scope.selectedBrand.locations.indexOf(location._id) > -1) filteredLocations.push(location);
       });
-      loadMap(filteredLocations);
+      updateMarkers(filteredLocations);
     }
   };
 
