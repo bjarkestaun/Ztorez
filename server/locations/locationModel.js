@@ -27,10 +27,26 @@ LocationSchema.methods.addGeoData = function () {
     });
 };
 
+LocationSchema.methods.checkIfExists = function (cb) {
+  module.exports.findOne({formattedAddress: this.formattedAddress}, function(error, location) {
+    if(error) cb(error);
+    else cb(null, location);
+  });
+};
+
 LocationSchema.pre('save', function (next) {
   this.addGeoData()
     .then(function () {
-      next();
+      this.checkIfExists(function (error, location) {
+        if(error) throw error;
+        else {
+          if(!location) {
+            next();
+          } else {
+            console.log('location already exists');
+          }
+        }
+      });
     })
     .catch(function (error) {
       console.log(error)
@@ -38,3 +54,13 @@ LocationSchema.pre('save', function (next) {
 });
 
 module.exports = mongoose.model('Location', LocationSchema);
+
+// LocationSchema.pre('save', function (next) {
+//   this.addGeoData()
+//     .then(function () {
+//       next();
+//     })
+//     .catch(function (error) {
+//       console.log(error)
+//     });
+// });
