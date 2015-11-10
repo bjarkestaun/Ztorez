@@ -47,13 +47,15 @@ angular.module('ztorez.services', [])
       data: data
     })
     .then(function (res) {
+      console.log(res.data);
       return res.data;
     });
-  }
+  };
 
   return {
     getLocations: getLocations,
-    addLocation: addLocation
+    addLocation: addLocation,
+    addBrandToLocation: addBrandToLocation
   };
 
 })
@@ -78,6 +80,7 @@ angular.module('ztorez.services', [])
       data: data
     })
     .then(function (res) {
+      console.log(res.data);
       return res.data;
     });
   };

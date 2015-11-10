@@ -86,4 +86,19 @@ angular.module('ztorez', [
     Locations.addLocation(data);
   };
 
+  $scope.addBrand = function () {
+    var data = {
+      name: $scope.brand.name
+    };
+    Brands.addBrand(data);
+  };
+
+  $scope.addBrandToLocation = function () {
+    var data = {
+      locationId: $scope.locationId,
+      brandId: $scope.brandId
+    };
+    Locations.addBrandToLocation(data);
+  };
+
 });
