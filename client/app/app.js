@@ -14,6 +14,8 @@ angular.module('ztorez', [
   var map;
   var markers = [];
   var openInfoWindow = null;
+  var selectedLocation = null;
+  var locationDetails = false;
    
   var getPosition = function (cb) {
     if('geolocation' in navigator) {
@@ -90,14 +92,24 @@ angular.module('ztorez', [
         content: InfoWindowContent
       });
       markers.push(marker);
-      marker.addListener('click', function () {
-        if(openInfoWindow) {
-          openInfoWindow.close();
-        }
+      marker.addListener('mouseover', function () {
+        if(openInfoWindow) openInfoWindow.close();
         infoWindow.open(marker.get('map'), marker);
         openInfoWindow = infoWindow;
       });
+      marker.addListener('mouseout', function () {
+        if(openInfoWindow) openInfoWindow.close();
+      })
+      marker.addListener('click', function () {
+        showLocationDetails(location);
+      });
     });
+  };
+
+  var showLocationDetails = function (location) {
+    var locationName = location.name;
+    var locationAddress = location.formattedAddress;
+    locationDetails = true;
   };
 
   $scope.filterResults = function () {

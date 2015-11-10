@@ -5,4 +5,26 @@ h1 {
   width: 500px;
   height: 500px;
   border: 1px black solid;
+  padding: 25px;
+  margin: auto;
+}
+#search-form {
+  width: 500px;
+  margin: auto;
+}
+#search-box {
+  display: inline-block;
+  width: 75%;
+}
+#search-button {
+  display: inline-block;
+  width: 20%;
+}
+.map {
+  width: 550px;
+  float: left;
+}
+.info-box {
+  width: 250px;
+  float: left;
 }
