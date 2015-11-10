@@ -15,12 +15,21 @@ module.exports = {
 
   addBrand: function (req, res, next) {
     var name = req.body.name;
-    var newBrand = new Brand({
-      name: name,
-    });
-    newBrand.save(function (error, brand) {
+    Brand.findOne({name: name}, function (error, brand) {
       if(error) throw error;
+      else {
+        if(!brand) {
+          var newBrand = new Brand({
+            name: name,
+          });
+          newBrand.save(function (error, brand) {
+            if(error) throw error;
+          });
+        } else {
+          console.log('brand already exists');
+        }
+      }
     });
   }
-  
-}
+
+};
