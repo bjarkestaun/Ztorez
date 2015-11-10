@@ -112,6 +112,10 @@ angular.module('ztorez', [
     $scope.locationName = location.name;
     $scope.locationAddress = location.formattedAddress;
     $scope.location = location;
+    $scope.brandNamesAtLocation = [];
+    $scope.brands.forEach(function (brand) {
+      if(location.brands.indexOf(brand._id) > -1) $scope.brandNamesAtLocation.push(brand.name);
+    });
     $scope.locationDetails = true;
     $scope.$digest();
   };
