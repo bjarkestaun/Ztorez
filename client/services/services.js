@@ -44,13 +44,19 @@ angular.module('ztorez.services', [])
   };
 
   var addBrandToLocation = function (data) {
+    debugger;
     return $http({
       method: 'POST',
       url: '/api/locations/brands',
       data: data
     })
     .then(function (res) {
+      console.log(res);
       return res.data;
+    })
+    .catch(function (error) {
+      console.log(error);
+      debugger;
     });
   };
 

@@ -145,7 +145,6 @@ angular.module('ztorez', [
     var data = {
       name: $scope.brandNameToAdd
     };
-    debugger;
     Brands.addBrand(data)
       .then(function (result) {
         $scope.addBrandToLocation(result);
@@ -184,7 +183,10 @@ angular.module('ztorez', [
         locationId: locationId,
         brandId: brandId
       };
-      Locations.addBrandToLocation(data);
+      Locations.addBrandToLocation(data)
+        .then(function (result) {
+          debugger;
+        });
     }
   };
 

@@ -47,12 +47,12 @@ module.exports = {
     var brandId = req.body.brandId;
     var locationId = req.body.locationId;
     Location.findByIdAndUpdate(locationId, {
-      $push: {'brands': brandId}
+      $addToSet: {'brands': brandId}
     }, function (error, location) {
       if(error) throw error;
     });
     Brand.findByIdAndUpdate(brandId, {
-      $push: {'locations': locationId}
+      $addToSet: {'locations': locationId}
     }, function (error, brand) {
       if(error) throw error;
     });
