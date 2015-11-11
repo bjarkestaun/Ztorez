@@ -17,6 +17,7 @@
   
   <h1>ztorez</h1>
 
+  <div>
   <div ng-view></div>
   <div class='map'>
     <form id='search-form' ng-submit='filterResults()'>
@@ -36,14 +37,19 @@
       <input type='submit' value='Add brand'/>
     </form>
   </div>
- <!--  <form ng-submit='addLocation()'>
-    <input ng-model='location.name'/>
-    <input ng-model='location.rawAddress'/>
-    <input type='submit' value='Add location'>
-  </form>
+  </div>
 
+  <div class='add-location'>
+    <br>
+    <br>
+    <form ng-submit='addLocation()'>
+      <input placeholder='Store name' ng-model='locationToAdd.name'/>
+      <input placeholder='Address' ng-model='locationToAdd.rawAddress'/>
+      <input type='submit' value='Add store'>
+    </form>
+  </div>
 
-  <form ng-submit='addBrandToLocation()'>
+<!--   <form ng-submit='addBrandToLocation()'>
     <input ng-model='locationName'/>
     <input ng-model='brandName'/>
     <input type='submit' value='Add brand to location'>

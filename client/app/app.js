@@ -153,8 +153,8 @@ angular.module('ztorez', [
 
   $scope.addLocation = function () {
     var data = {
-      name: $scope.location.name,
-      rawAddress: $scope.location.rawAddress
+      name: $scope.locationToAdd.name,
+      rawAddress: $scope.locationToAdd.rawAddress
     };
     Locations.addLocation(data);
   };
