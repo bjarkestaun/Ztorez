@@ -46,16 +46,21 @@ module.exports = {
   addBrandToLocation: function (req, res) {
     var brandId = req.body.brandId;
     var locationId = req.body.locationId;
-    Location.findByIdAndUpdate(locationId, {
+    var promises = [];
+    promises.push(Location.findByIdAndUpdate(locationId, {
       $addToSet: {'brands': brandId}
     }, function (error, location) {
       if(error) throw error;
-    });
-    Brand.findByIdAndUpdate(brandId, {
+    }));
+    promises.push(Brand.findByIdAndUpdate(brandId, {
       $addToSet: {'locations': locationId}
     }, function (error, brand) {
       if(error) throw error;
-    });
+    }));
+    Promise.all(promises)
+      .then(function () {
+        res.status(201).send('created');
+      });
   }
 
 };

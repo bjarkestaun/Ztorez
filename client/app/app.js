@@ -69,7 +69,6 @@ angular.module('ztorez', [
       map.addListener('click', function () {
         if(openInfoWindow) openInfoWindow.close();
         $scope.locationDetails = false;
-        $scope.$digest();
       });
       updateMarkers(locs);
     });
@@ -103,12 +102,12 @@ angular.module('ztorez', [
         if(openInfoWindow) openInfoWindow.close();
       })
       marker.addListener('click', function () {
-        showLocationDetails(location);
+        $scope.showLocationDetails(location);
       });
     });
   };
 
-  var showLocationDetails = function (location) {
+  $scope.showLocationDetails = function (location) {
     $scope.locationName = location.name;
     $scope.locationAddress = location.formattedAddress;
     $scope.location = location;
@@ -141,9 +140,9 @@ angular.module('ztorez', [
 
 
   // functions that add locations and brands
-  $scope.addBrand = function () {
+  $scope.addBrand = function (brand) {
     var data = {
-      name: $scope.brandNameToAdd
+      name: brand
     };
     Brands.addBrand(data)
       .then(function (result) {
@@ -163,21 +162,6 @@ angular.module('ztorez', [
     var locationId = $scope.location._id;
     var brandId = brand._id;
 
-    // var locationId = $scope.locations.reduce(function (total, location) {
-    //   if(location.name === $scope.locationName) {
-    //     return location._id;
-    //   } else {
-    //     return total;
-    //   }
-    // }, null);
-    // var brandId = $scope.brands.reduce(function (total, brand) {
-    //   if(brand.name === $scope.brandName) {
-    //     return brand._id;
-    //   } else {
-    //     return total;
-    //   }
-    // }, null);
-    
     if(locationId && brandId) {
       var data = {
         locationId: locationId,
@@ -185,7 +169,11 @@ angular.module('ztorez', [
       };
       Locations.addBrandToLocation(data)
         .then(function (result) {
-          debugger;
+          $scope.brandNamesAtLocation.push(brand.name);
+          getBrands(function (error, brands) {
+            getLocations(function (error, locations) {
+            });
+          });
         });
     }
   };

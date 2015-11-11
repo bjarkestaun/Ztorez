@@ -25,13 +25,13 @@
     </form>
     <div id='map'></div>
   </div>
-  <div class='info-box' ng-show='locationDetails'>
+  <div class='info-box' ng-if='locationDetails'>
     <h3>{{ location.name }}</h3>
     <p>{{ location.formattedAddress }}</p>
     <br/>
     <h4>Brands available</h4>
     <p ng-repeat='brand in brandNamesAtLocation'>{{ brand }}</p>
-    <form ng-submit='addBrand()'>
+    <form ng-submit='addBrand(brandNameToAdd)'>
       <input ng-model='brandNameToAdd'/>
       <input type='submit' value='Add brand'/>
     </form>

@@ -54,13 +54,3 @@ LocationSchema.pre('save', function (next) {
 });
 
 module.exports = mongoose.model('Location', LocationSchema);
-
-// LocationSchema.pre('save', function (next) {
-//   this.addGeoData()
-//     .then(function () {
-//       next();
-//     })
-//     .catch(function (error) {
-//       console.log(error)
-//     });
-// });
