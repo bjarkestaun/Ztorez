@@ -69,6 +69,7 @@ angular.module('ztorez', [
       map.addListener('click', function () {
         if(openInfoWindow) openInfoWindow.close();
         $scope.locationDetails = false;
+        $scope.$digest();
       });
       updateMarkers(locs);
     });
